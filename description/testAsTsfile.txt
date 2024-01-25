@@ -1,0 +1,126 @@
+import axios from 'axios';
+import fs from 'fs';
+import path from 'path';
+import CookingControllers from './CookingControllers';
+import { Request, Response } from 'express';
+
+jest.mock('axios');
+jest.mock('fs');
+
+describe('getCookingRoutes', () => {
+ it('returns an error if the day is not a number', async () => {
+    // Mock the request and response objects
+    const req = {
+      query: {
+        day: 'invalid',
+        ingredient: 'Egg',
+      },
+    } as unknown as Request;
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      send: jest.fn(),
+    } as unknown as Response;
+
+    // Call the function with the mocked request and response objects
+    await CookingControllers.getCookingRoutes(req, res);
+
+    // Assert that the response.send function was called with the correct arguments
+    expect(res.send).toHaveBeenCalledWith("Invalid day. Please enter a number between 1 and 30.");
+ });
+
+ it('returns an error if the ingredient is not in the dishes', async () => {
+    // Mock the request and response objects
+    const req = {
+      query: {
+        day: '1',
+        ingredient: 'NotExists',
+      },
+    } as unknown as Request;
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      send: jest.fn(),
+    } as unknown as Response;
+
+    // Mock the axios.get function to return a predefined response
+    axios.get.mockResolvedValueOnce({
+      data: {
+        data: [
+          {
+            timings: {
+              Asr: '15:53',
+              Maghrib: '18:29',
+            },
+          },
+        ],
+      },
+    });
+
+    // Mock the fs.readFileSync function to return a predefined JSON string
+    fs.readFileSync.mockReturnValueOnce(JSON.stringify([
+      {
+        name: 'Shakshouka',
+        ingredients: ['Egg', 'Harissa', 'Tomatoe Paste'],
+        duration: 30,
+      },
+    ]));
+
+    // Call the function with the mocked request and response objects
+    await CookingControllers.getCookingRoutes(req, res);
+
+    // Assert that the response.send function was called with the correct arguments
+    expect(res.send).toHaveBeenCalledWith("No dishes found for the specified ingredient.");
+ });
+it('returns the correct prayer times and dishes', async () => {
+    // Mock the request and response objects
+    const req = {
+      query: {
+        day: '1',
+        ingredient: 'Egg',
+      },
+    } as unknown as Request;
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      send: jest.fn(),
+    } as unknown as Response;
+
+    // Mock the axios.get function to return a predefined response
+    axios.get.mockResolvedValueOnce({
+      data: {
+        data: [
+          {
+            timings: {
+              Asr: '15:53',
+              Maghrib: '18:29',
+            },
+          },
+        ],
+      },
+    });
+
+    // Mock the fs.readFileSync function to return a predefined JSON string
+    fs.readFileSync.mockReturnValueOnce(JSON.stringify([
+      {
+        name: 'Shakshouka',
+        ingredients: ['Egg', 'Harissa', 'Tomatoe Paste'],
+        duration: 30,
+      },
+    ]));
+
+    // Call the function with the mocked request and response objects
+    await CookingControllers.getCookingRoutes(req, res);
+
+    // Assert that the response.send function was called with the correct arguments
+    expect(res.send).toHaveBeenCalledWith({
+      dishes: [
+        {
+          name: 'Shakshouka',
+          ingredients: ['Egg', 'Harissa', 'Tomatoe Paste'],
+          cooktime: '90 minutes after Asr',
+          duration: undefined,
+        },
+      ],
+      prayerTimes: '-----> Asr prayer time in Makkah: 15:53, Maghrib prayer time in Makkah: 18:29',
+      dayOfRamadan: expect.stringMatching(/^Today is \d{2}\/\d{2} , The day 1 of ramadan $/),
+    });
+ });
+});

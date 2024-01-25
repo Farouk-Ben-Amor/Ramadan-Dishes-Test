@@ -1,0 +1,30 @@
+create a new variable name it doneCookingTime and store inside it the maghrib prayer time minus 15 min ,
+then create another variable startCookingTime and store inside it doneCookingTime - dish.duration , 
+then comparing that generated time with the asr prayer time , 
+if startCookingTime came later than asr prayer then create another variable named timing 
+and store inside it startCookingTime - asr prayer (this duration in minutes) and display 'timing minutes after asr',
+
+if startCookingTime came earlier than asr prayer then create another variable named timing 
+and store inside it asr prayer - startCookingTime  (this duration in minutes) and display 'timing minutes before asr',
+
+==>Example1 : (for the sentence after asr)
+asrTime = 15:28
+maghribTime = 17:50
+dish.duration = 30 min
+doneCookingTime = 17:50 - 15 = 17:35
+startCookingTime = 17:35 - 30 = 17:05
+if(startCookingTime(17:05) >(later than) asrTime(15:28) ) : which is true
+timing =  17:05 - 15:28 = 97 min
+->97 minutes after asr.
+
+
+==>Example2 : (for the sentence before asr)
+asrTime = 15:28
+maghribTime = 17:50
+dish.duration = 155 min
+doneCookingTime = 17:50 - 15 = 17:35
+startCookingTime = 17:35 - 155 = 15:00
+if(startCookingTime(17:05) (earlier than) < asrTime(15:28) ) : which is true
+timing = 15:28 - 15:00 = 28 min
+->28 minutes before asr.
+
