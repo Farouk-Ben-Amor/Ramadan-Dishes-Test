@@ -6,16 +6,21 @@ import momentH from 'moment-hijri'
 import axios from 'axios'
 // converting the file url to a file path
 const __filename = fileURLToPath(import.meta.url)
-
 // this to get the directory name of the current module
 const __dirname = path.dirname(__filename)
 
-// fetching dishes from the dishes.json file:
 
-export const randomDish = (array) => {
-  const randomIndex = Math.floor(Math.random() * array.length)
-  return array[randomIndex]
-}
+//Leat's suggest Couscous for the half night of ramadan, also for 27 night 😁🥣
+export const randomDish = (array, day) => {
+  if (day === 14 || day === 27) {
+    const dishes = getDishes();
+    const veggieCouscous = dishes.find(dish => dish.name === "Veggie Couscous");
+    return veggieCouscous || null;
+  } else {
+    const randomIndex = Math.floor(Math.random() * array.length);
+    return array[randomIndex];
+  }
+};
 
 export const getDishes = () => {
   // creating the path to the 'dishes.json' file
@@ -62,14 +67,9 @@ export const getPrayerFromApi = async (URL) => {
     throw error
   }
 }
-/*
-based on aladhan prayertime ressource : https://aladhan.com/ramadan-prayer-times/2024/Makkah/Saudi%20Arabia
-the 1st day of the upcoming ramadan this year is 11 March, 2024 (Ramaḍān, 1445)
-that's why i used it as my startDate to work with it (in the calculateStartDate below.)
-*/
+
 export const calculateStartDate = (day) => {
   const currentDate = momentH()
-  console.log(currentDate)
   let currentYear = currentDate.iYear()
 
   while (true) {
@@ -107,9 +107,7 @@ export const validateIngredient = (ingredient, dishes) => {
   }
   return true
 }
-
 /*
-notes
-const now = moment(); // Creating a moment object representing the current moment in time
-=> a "moment object" represents a specific point in time
+const now = moment() : Creating a moment object representing the current moment in time
+a "moment object" represents a specific point in time
 */
