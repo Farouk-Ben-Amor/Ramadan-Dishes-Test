@@ -53,7 +53,7 @@ Tests :
 
 ### How to Use
 
-> Calculate Cooking Time: 
- Make a GET request to /cooktime with parameters day and ingredient. Example: /cooktime?day=5&ingredient=Chicken
-> Get Random Dish Suggestions: 
- Make a GET request to /suggest with the parameter day. Example: /suggest?day=15
+> Calculate Cooking Time:  
+ Make a GET request to /cooktime with parameters day and ingredient. Example: /cooktime?day=5&ingredient=Chicken  
+> Get Random Dish Suggestions:  
+ Make a GET request to /suggest with the parameter day. Example: /suggest?day=15  
