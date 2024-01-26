@@ -45,7 +45,7 @@ const cookingController = {
       const URL = `https://api.aladhan.com/v1/calendarByCity/${currentYear}/${ramadanMonth}?city=Makkah&country=Saudi Arabia&method=1`
 
       const prayerTimes = await getPrayerFromApi(URL)
-      console.log(prayerTimes)
+      // console.log(prayerTimes)
 
       const dayPrayerTimes = findDayPrayerTimes(prayerTimes, StartDate)
 

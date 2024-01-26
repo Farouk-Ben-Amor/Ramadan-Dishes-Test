@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import moment from 'moment'
+import momentH from 'moment-hijri'
 import axios from 'axios'
 // converting the file url to a file path
 const __filename = fileURLToPath(import.meta.url)
@@ -67,9 +68,21 @@ the 1st day of the upcoming ramadan this year is 11 March, 2024 (Ramaḍān, 144
 that's why i used it as my startDate to work with it (in the calculateStartDate below.)
 */
 export const calculateStartDate = (day) => {
-  const StartDate = moment([new Date().getFullYear(), 2, 11]) // March 11
-  StartDate.add(day - 1, 'days')
-  return StartDate
+  const currentDate = momentH()
+  console.log(currentDate)
+  let currentYear = currentDate.iYear()
+
+  while (true) {
+    for (let i = 1; i <= 12; i++) {
+      const testDate = momentH().iYear(currentYear).iMonth(i - 1).iDate(1)
+      if (testDate.iMonth() === 8) { // Check if it's the 9th month (Ramadan)
+        const StartDate = momentH(testDate).add(day - 1, 'days')
+
+        return StartDate
+      }
+    }
+    currentYear++
+  }
 }
 export const validateDay = (day) => {
   if (day === undefined) {
