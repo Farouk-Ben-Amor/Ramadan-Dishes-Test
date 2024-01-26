@@ -10,11 +10,13 @@ The project is organized into three main controllers:
  - server.js
  - cookingcontroller.js
  - suggestionscontroller.js
+
 Utilities :
-  - dishesutils.js
+- dishesutils.js
+
 Tests :
-  - cooktime.test.js
-  - dishes.test.js
+- cooktime.test.js
+- dishes.test.js
 
 ## Dependencies
 
@@ -26,7 +28,7 @@ Tests :
 ## Assignment
 
 - ✅ Modern utilities
-- ✅ clear structure
+- ✅ Clear structure
 - ✅ Formatting & Linting
 - ✅ Dynamic data inside the project
 - ✅ Testing
