@@ -9,10 +9,10 @@ It aims to find the estimated cooking time for a dish based on the day of Ramada
 The project is organized into three main controllers:
  - server.js
  - cookingcontroller.js
- - suggestionscontroller.js
+ - suggestionscontroller.js  
 
 Utilities :
-- dishesutils.js
+- dishesutils.js  
 
 Tests :
 - cooktime.test.js
