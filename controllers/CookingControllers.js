@@ -10,7 +10,8 @@ import {
   validateIngredient
 } from '../utils/dishesUtils.js'
 /*
-i tried to fetch with this api but it have timestamp changing randomly each day , so i used dishes.json file to fetch instead
+i tried to fetch with this api but it have timestamp changing randomly each day ,
+so i used dishes.json file to fetch instead
 const URL = 'https://file.notion.so/f/f/29f0d547-e67d-414a-aece-c8e4f886f341/7c1daa75-3bea-4684-bf17-be07a0800452/dishes.json?id=bcc24a10-cc7d-4db2-8c82-f61773c06fc7&table=block&spaceId=29f0d547-e67d-414a-aece-c8e4f886f341&expirationTimestamp=1706191200000&signature=VVtEt3NHmIQdSoEFKHofeOgQd6sm96_x-4WhJq-fSps&downloadName=dishes.json'
 const result = await fetch(URL)
     if (!result.ok) {
@@ -38,9 +39,7 @@ const cookingController = {
       }
 
       const StartDate = calculateStartDate(day)
-      const formattedDate = `-----> Today is ${StartDate.format(
-        'MM/DD'
-      )} , The day ${day} of ramadan `
+      const formattedDate = `-----> Today is ${StartDate.format('MM/DD')} , The day ${day} of ramadan `
       const ramadanMonth = StartDate.month() + 1
 
       const URL = `https://api.aladhan.com/v1/calendarByCity/${currentYear}/${ramadanMonth}?city=Makkah&country=Saudi Arabia&method=1`
